@@ -20,23 +20,23 @@ FastDFS源码包下载地址：[https://github.com/happyfish100](https://github.
 单个节点安装，需要安装Tracker、Storage，以及要使用Http访问，需要进行集成Nginx模块。其中，Tracker类似于Storm的Nimbus，负责管理Storage，而Storage是真正存储文件的地方。
 
 Linux安装FastDFS步骤：
-1、下载软件包，安装gcc包
-2、安装libfastcommon
-3、安装FastDFS
-4、配置跟踪器(tracker)
-5、配置存储器（storage）
-6、环境搭建完成，可以进行测试环境是否搭建成功
-7、跟踪器和存储器安装Nginx，之前已经安装完毕了，我们可以对Nginx进行整合，实现使用浏览器下载文件
-8、启动和关闭服务顺序：跟踪器、存储器、Nginx
+1、下载软件包，安装gcc包  
+2、安装libfastcommon  
+3、安装FastDFS  
+4、配置跟踪器(tracker)  
+5、配置存储器（storage）  
+6、环境搭建完成，可以进行测试环境是否搭建成功  
+7、跟踪器和存储器安装Nginx，之前已经安装完毕了，我们可以对Nginx进行整合，实现使用浏览器下载文件  
+8、启动和关闭服务顺序：跟踪器、存储器、Nginx  
 
 FastDFS安装手册
 
 ## 1. 准备工作 ##
 
 准备三台机器
-Client:  192.168.80.40
-Tracker: 192.168.80.41
-Storage: 192.168.80.42
+Client:  192.168.80.40  
+Tracker: 192.168.80.41  
+Storage: 192.168.80.42  
 
 	yum makecache
 	yum install -y wget
@@ -157,8 +157,8 @@ FastDFS主程序设置的目录为/usr/local/lib/，所以我们需要创建/usr
 
 (1)服务脚本在:
 
-/etc/init.d/fdfs_storaged
-/etc/init.d/fdfs_trackerd
+/etc/init.d/fdfs_storaged  
+/etc/init.d/fdfs_trackerd  
 
 查看/etc/init.d/目录命令：
 
@@ -168,9 +168,9 @@ FastDFS主程序设置的目录为/usr/local/lib/，所以我们需要创建/usr
 
 (2)配置文件在:
 
-/etc/fdfs/client.conf.sample
-/etc/fdfs/storage.conf.sample
-/etc/fdfs/tracker.conf.sample
+/etc/fdfs/client.conf.sample  
+/etc/fdfs/storage.conf.sample  
+/etc/fdfs/tracker.conf.sample  
 
 查看/etc/fdfs/目录命令：
 
