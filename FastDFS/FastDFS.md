@@ -33,7 +33,7 @@ FastDFS安装手册
 
 ## 1. 准备工作 ##
 
-准备三台机器
+准备三台机器  
 Client:  192.168.80.40  
 Tracker: 192.168.80.41  
 Storage: 192.168.80.42  
@@ -114,7 +114,7 @@ https://github.com/happyfish100/libfastcommon
 
 注意：libfastcommon默认安装到了`/usr/lib64/`这个位置 
 
-5、进行软件创建。
+5、进行软连接创建。
 
 FastDFS主程序设置的目录为/usr/local/lib/，所以我们需要创建/usr/lib64/下的一些核心执行程序的软连接
 
@@ -496,6 +496,7 @@ FastDFS主程序设置的目录为/usr/local/lib/，所以我们需要创建/usr
 
 拷贝文件
 
+	cd /usr/local/fast/FastDFS/conf/ && ll
 	cp http.conf mime.types /etc/fdfs/
 
 (7)创建软连接
