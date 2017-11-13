@@ -1,5 +1,13 @@
 # FastDFS单节点安装 #
 
+参考：
+
+http://blog.csdn.net/wlwlwlwl015/article/details/52619851
+
+http://blog.csdn.net/wlwlwlwl015/article/details/52682153
+
+https://www.cnblogs.com/jiafuwei/p/5777622.html
+
 1、FastDFS简介与安装
 2、FastDFS的JavaClient端API操作
 3、FastDFS的集群环境搭建
@@ -345,7 +353,7 @@ FastDFS主程序设置的目录为/usr/local/lib/，所以我们需要创建/usr
 	ps -ef | grep fdfs
 	netstat -nltp | grep fdfs
 
-进入到/fastdfs/storage/data/目录下，会看到一些目录文件（256*156），如下：
+进入到/fastdfs/storage/data/目录下，会看到一些目录文件（256*256），如下：
 
 ![](images/fastdfs_storage_data_folders.png)
 
