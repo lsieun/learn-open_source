@@ -748,9 +748,14 @@ hellojava.html内容如下：
 	mkdir -p /usr/local/software
 	cd /usr/local/software/
 
-tar -zxvf jdk-7u79-linux-x64.tar.gz -C /usr/local/
-cd /usr/local/
-ln -s jdk1.7.0_79/ jdk
+解压jdk
+
+	tar -zxvf jdk-7u79-linux-x64.tar.gz -C /usr/local/
+
+创建jdk的软连接
+
+	cd /usr/local/
+	ln -s jdk1.7.0_79/ jdk
 
 修改`/etc/profile`文件
 
@@ -758,25 +763,43 @@ ln -s jdk1.7.0_79/ jdk
 
 在文件尾部添加如下内容：
 
-JAVA_HOME=/usr/local/jdk
-export PATH=${JAVA_HOME}/bin:$PATH
+	JAVA_HOME=/usr/local/jdk
+	export PATH=${JAVA_HOME}/bin:$PATH
 
-source /etc/profile
+重新加载/etc/profile文件
 
-java -version
+	source /etc/profile
 
+验证jdk是否安装成功
 
-tar -zxvf apache-tomcat-7.0.72.tar.gz -C /usr/local/
+	java -version
 
-cd /usr/local/
-ln -s apache-tomcat-7.0.72/ tomcat
+解压tomcat
+
+	tar -zxvf apache-tomcat-7.0.72.tar.gz -C /usr/local/
+
+创建tomcat的软连接
+
+	cd /usr/local/
+	ln -s apache-tomcat-7.0.72/ tomcat
 
 ![](images/decompress_tomcat_ln_s.png)
 
-service iptables stop
+关闭防火墙
 
-/usr/local/tomcat/bin/startup.sh
+	service iptables stop
 
+启动Tomcat
+
+	/usr/local/tomcat/bin/startup.sh
+
+打开浏览器
+
+![](images/nginx_page_index_html.png)
+
+![](images/nginx_page_index_jsp.png)
+
+![](images/nginx_page_index_jsp_26_8080.png)
 
 
 ## 8、负载均衡 ##
@@ -797,12 +820,75 @@ Nginx反向代理 proxy 与负载均衡 upstream
 	#设置客户端真实IP地址
 	proxy_set_header X-real-ip $remote_addr
 
+在MyTomcat01（192.168.80.26）上添加test.jsp内容如下：
+
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Test Page</title>
+	</head>
+	<body>
+	<h1>MyTomcat01 Test!!!</h1><br/>
+	remote ip :  <%=request.getHeader("X-real-ip") %> <br/>
+	nginx server ip : <%=request.getRemoteAddr()%>
+	</body>
+	</html>
+
+![](images/nginx_page_test_jsp_26.png)
+
+在MyTomcat02（192.168.80.27）上添加test.jsp内容如下：
+
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Test Page</title>
+	</head>
+	<body>
+	<h1>MyTomcat02 Test!!!</h1><br/>
+	remote ip :  <%=request.getHeader("X-real-ip") %> <br/>
+	nginx server ip : <%=request.getRemoteAddr()%>
+	</body>
+	</html>
+
+![](images/nginx_page_test_jsp_27.png)
 
 
+在25机器上修改nginx.conf文件
 
+	vi /usr/local/nginx/conf/nginx.conf
 
+添加如下内容：
 
+    upstream web_project {
+        server 192.168.80.26:8080 weight=1 max_fails=2 fail_timeout=30s;
+        server 192.168.80.27:8080 weight=1 max_fails=2 fail_timeout=30s;
+    }
 
+        location / {
+            #设置客户端真实ip地址
+            proxy_set_header X-real-ip $remote_addr;
+            #负载均衡反向代理
+            proxy_pass http://web_project;
+            root   html;
+            index  index.html index.htm;
+        }
 
+![](images/nginx_conf_upstream_proxy.png)
+
+重新加载nginx.conf的配置
+
+	/usr/local/nginx/sbin/nginx -s reload
+
+使用浏览器进行查看
+
+![](images/nginx_page_test_jsp_tomcat01.png)
+
+![](images/nginx_page_test_jsp_tomcat02.png)
+
+>至此结束
 
 
