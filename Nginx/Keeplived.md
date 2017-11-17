@@ -29,6 +29,7 @@ keepalived + Nginx
 
 解压安装： 
 
+	cd /usr/local/software/
 	tar -zxvf keepalived-1.2.18.tar.gz -C /usr/local/
 
 切换到keepalived的解压目录，进行配置
@@ -59,7 +60,7 @@ keepalived + Nginx
 
 创建软连接
 
-	ln -s /usr/local/sbin/keepalived /usr/sbin/
+	ln -s /usr/local/keepalived/sbin/keepalived /usr/sbin/
 	ln -s /usr/local/keepalived/sbin/keepalived /sbin/
 
 可以设置开机启动

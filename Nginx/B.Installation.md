@@ -1,6 +1,15 @@
 ## 2、Nginx环境搭建##
 
-### 2.1、下载和解压 ###
+### 2.1、安装依赖库 ###
+
+安装Nginx所需要的依赖库
+
+	yum -y install pcre
+	yum -y install pcre-devel
+	yum -y install zlib
+	yum -y install zlib-devel
+
+### 2.2、下载和解压 ###
 
 Nginx下载地址：
 
@@ -12,14 +21,7 @@ Nginx下载地址：
 	cd /usr/local/software/
 	tar -zxvf nginx-1.6.2.tar.gz
 	
-### 2.2、安装依赖库 ###
 
-安装Nginx所需要的依赖库
-
-	yum -y install pcre
-	yum -y install pcre-devel
-	yum -y install zlib
-	yum -y install zlib-devel
 
 ### 2.3、配置 ###
 
