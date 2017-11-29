@@ -267,7 +267,7 @@ Storage22: 192.168.80.122
 
 	vi config
 
-修改内容：去掉下图中的local文件层次
+修改内容：去掉下图中的local文件层次(注意：在一行当中，需要修改两处)
 
 ![](images/fastdfs-nginx-module_src_config_local.png)
 
@@ -323,7 +323,7 @@ Storage22: 192.168.80.122
 
 	connect_timeout=10
 	tracker_server=192.168.80.101:22122
-	tracker_server=192.168.80.101:22122
+	tracker_server=192.168.80.102:22122
 	url_have_group_name = true
 	store_path0=/fastdfs/storage
 	group_name=group1 #第一组为group_name=group1，第二组为group_name=group2

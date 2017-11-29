@@ -432,7 +432,7 @@ FastDFS主程序设置的目录为/usr/local/lib/，所以我们需要创建/usr
 
 	vi config
 
-修改内容：去掉下图中的local文件层次
+修改内容：去掉下图中的local文件层次(注意：在一行当中，需要修改两处)
 
 ![](images/fastdfs-nginx-module_src_config_local.png)
 

@@ -182,6 +182,6 @@ vi nginx_check.sh
 chmod 777 nginx_check.sh
 
 
-ip -a 查看两台电脑的IP地址
+ip a 查看两台电脑的IP地址
 
 
