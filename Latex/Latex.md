@@ -29,9 +29,27 @@ http://blog.sina.com.cn/s/blog_5e16f1770100fs38.html
 
 p(\epsilon^{(i)})=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(\epsilon^{(i)})^{2}}{2\sigma^{2}}}
 
+[LaTeX 设置字体颜色](http://blog.csdn.net/yhl_leo/article/details/50240179)
+[Latex中如何设置字体颜色（三种方式）](https://www.cnblogs.com/tsingke/p/7457236.html)
+
+如何在公式中表示上下堆积关系？
+
+答：在latex有一个命令\stackre{上部符号}{下部符号}，但更好的一个是用宏包
+amslatex中命令\overset和\underset。一个例子是
+\[ \overset{*}{X} \qquad
+\underset{*}{X} \qquad
+\overset{a}{\underset{b}{X}} \]
+
 
 WinEdt显示行号
 
 	在编辑窗口中右键点击左侧边框，【右键】-【Show Line Numbers】。
 	若要取消行号，在左侧边框上【右键】-【Hide  Line Numbers】
+
+WinEdt修改字体大小
+
+	Options-->Preferences-->Font
+
+
+
 
