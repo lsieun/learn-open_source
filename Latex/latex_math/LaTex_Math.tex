@@ -1,0 +1,140 @@
+\documentclass[UTF8]{ctexart}
+\author{HelloWorld}
+\title{常用数学符号的 LaTeX 表示方法}
+\begin{document}
+\maketitle
+
+\section{特殊符号}
+
+\subsection{单个字符}
+
+在LaTex中，大部分键盘字符都可以直接输入，但是“\#，\$，\%，\{，\}，\~{}，$\backslash$，\^{}，”在Tex中有特殊的用途，排版时需要在字符前面加入强制转换。
+
+这些特殊字符应该按如下对应输入：
+
+\#---------$\backslash$\#
+
+\$---------$\backslash$\$
+
+\%---------$\backslash$\%
+
+\&---------$\backslash$\&
+
+\{---------$\backslash$\{
+
+\}---------$\backslash$\}
+
+$\backslash$---------\$$\backslash$backslash\$
+
+\^{}---------$\backslash$\^{}\{\}
+
+别处又找来这些：
+
+换行---------$\backslash$newline
+
+\textbackslash---------$\backslash$textbackslash
+
+\textcopyright---------$\backslash$textcopyright
+
+\textregistered---------$\backslash$textregistered
+
+$^\circ$C---------\$\^{}$\backslash$circ\$C
+
+\pounds---------$\backslash$pounds 
+
+\dots---------$\backslash$dots
+
+\today---------$\backslash$today  
+
+\LaTeX{}---------$\backslash$LaTeX\{\}
+
+\TeX{}---------$\backslash$TeX\{\} 
+
+\LaTeXe{}---------$\backslash$LaTeXe\{\}
+
+没有空格 ab---------ab
+
+小空格	a\,b---------a$\backslash$,b
+
+大空格	a\ b---------a$\backslash$ b
+
+quad空格 a \quad b---------a $\backslash$quad b
+
+两个quad空格	a \qquad b---------a $\backslash$qquad b
+
+
+\subsection{空格\&换行}
+
+空格：西文单词用空格隔开，TEX中的连续多个空格在编译排版时被看做一个空格。
+
+换行：连续两个回车被看做是段落结束，可以使用$\backslash$$\backslash$强制换行。
+
+\subsection{引号}
+
+左单引号用键盘左上角的倒引号"`"；
+
+右单引号用键盘enter键旁边的单引号"'"；
+
+左双引号是连用两个倒引号"``"；
+
+右单引号连用两个单引号"''"；
+
+当单引号与双引号相邻时，在两者中间插入一个”$\backslash$,“。
+
+\subsection{连字号、破折号}
+
+一个连字号"-"表示一个连字号“-”
+
+连续用两个连字号"-"表示数字范围符号“--”
+
+连续用三个连字号"-"表示西文破折号“---”
+
+（数学中的减号或者负号，需要输入\$-\$）
+
+\subsection{连体号}
+
+在Latex中，把ff这样的字母组合，当成一个连体号排版出来的，而不是分开来的。如要将两者分开，应在两者中间加入“$\backslash$/”,即“f$\backslash$/f”，效果如“f\/f”。
+
+\subsection{句号后面的空白}
+
+句号圆点：（1）可以表示句子结束，（2）也可以表示缩写。
+
+在Latex中，小写字母后面圆点表示句子结束，但是为了表示缩写，需在圆点后倒斜线加上空格，即“$\backslash$ ”，表示缩写后面可以分行;
+
+
+在Latex中，大写字母后的圆点看做是一个缩写而不是句号。有时大写字母后面圆点表示成句号，可以在圆点前加上$\backslash$@，即“$\backslash$@.”
+
+
+
+\section{数学符号}
+
+\subsection{数学模式重音符}
+
+$\bar{a}$ \quad $\backslash$bar\{a\} \qquad
+$\acute{a}$ \quad $\backslash$acute\{a\} \qquad
+$\breve{a}$ \quad $\backslash$breve\{a\} \qquad
+$\grave{a}$ \quad $\backslash$grave\{a\} \qquad
+
+$\dot{a}$ \quad $\backslash$dot\{a\} \qquad
+$\ddot{a}$ \quad $\backslash$ddot\{a\} \qquad
+$\hat{a}$ \quad $\backslash$hat\{a\} \qquad
+$\widehat{a}$ \quad $\backslash$widehat\{a\} \qquad
+
+$\check{a}$ \quad $\backslash$check\{a\} \qquad
+$\vec{a}$ \quad $\backslash$vec\{a\} \qquad
+$\tilde{a}$ \quad $\backslash$tilde\{a\} \qquad
+$\widetilde{a}$ \quad $\backslash$widetilde\{a\} \qquad
+
+\subsection{小写希腊字母}
+
+\subsection{大写希腊字母}
+
+１、指数和下标可以用\^{}和\_后加相应字符来实现。比如：
+
+
+
+
+
+
+
+\end{document}
