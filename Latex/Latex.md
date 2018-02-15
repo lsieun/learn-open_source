@@ -60,6 +60,52 @@ http://blog.sina.com.cn/s/blog_631a4cc40101otu6.html
 
 注：如果还不好使，就把除.tex以外的文件均删除掉，如：.bbl,.blg,.dvi,.log等
 
+写数学公式模板
+
+```latex
+\begin{equation}
+\begin{aligned}
+\mu &= \frac{1}{n} \sum_{i} x_{i} \\
+\sigma^{2} &=\frac{1}{n}\sum_{i} (x_{i}-\mu)^{2}
+\end{aligned}
+\end{equation}
+```
+
+```latex
+\begin{itemize} 
+\item geometry
+\item typearea 
+\item fancyhdr 
+\end{itemize} 
+```
+
+颜色
+
+```latex
+\textcolor{red}{实矩阵}
+```
+
+没有任何修饰的矩阵
+
+```latex
+\begin{matrix} 0 & 1 \\ 1 & 0 \end{matrix}\quad
+```
+
+
+两侧是小括号、中括号、大括号的矩阵
+
+```latex
+\begin{pmatrix} 0 & -i \\ i & 0 \end{pmatrix}
+\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}
+\begin{Bmatrix} 1 & 0 \\ 0 & -1 \end{Bmatrix}
+```
+
+两侧是单竖线、双竖线的矩阵
+
+```latex
+\begin{vmatrix} a & b \\ c & d \end{vmatrix}\quad
+\begin{Vmatrix} i & 0 \\ 0 & -i \end{Vmatrix}
+```
 
 
 # HelloWorld #
@@ -483,6 +529,328 @@ i]。将生成标号 Exi、Exii、……。
 ```
 
 如果你对列表的版面设计有更高的要求，请参阅该包的手册。
+
+# 生成表格和插入图像 #
+
+在论文中经常用表格罗列各种数据，用行列对比的方式说明这些数据的相互关系。表格的特点就是醒目直观，便于分析理解。用数据说话，胜于大段的文字描述。
+
+LaTeX  系统提供了一个**无表格框线的 tabbing  表格环境**和 **3  个可以排版有表格框线的 tabular、tabular*  和 array  表格环境**，其中 array  是用于数学模式的表格环境；
+
+后来 Frank  Mittebach 等人编写的 **array  宏包**对这 3  个表格环境的制表功能做了重大改进和扩展，得到广泛应用。
+
+上述几种表格环境的制表功能还有很多局限，比如不能跨行和跨页排版等，因此出现了许多以上述表格环境为基础的具有各种特殊功能的表格宏包。
+
+## 表格环境 tabbing ##
+
+表格环境 tabbing  是由 LaTeX  系统提供的，适用于段落模式，它没有表格框线绘制命令，列与列之间采用空白分隔，列数据处于左右模式中，不能自动换行，所以该环境适合用于编排可预知各列数据最大宽度的表格。tabbing  表格环境的基本命令结构为: 
+
+	\begin{tabbing} 
+	数据\=数据\=数据\\ 
+	数据\>数据\> ...数据\\ 
+	\end{tabbing} 
+
+解释： 
+
+- \=  **列宽命令**，表示两列之间以此为界，第 1  行的各列必须用其确定列宽度，一列的宽度是由其第 1  行数据的自然宽度加所设水平空白宽度:该命令还可用在其他行来设置新的列。 
+- \\  **换行命令**，表示当前行结束，开始新的一行。最后一行可省略此命令。可采用如 \\[5pt]  的方法加宽与下一行的距离。 
+- \>  **分列命令**，用于分隔两列数据。
+
+```latex
+\documentclass{article}
+\begin{document}
+\begin{tabbing}
+\emph{Info:} \= Software \= : \= \LaTeX \\
+\> Author \> : \> Leslie Lamport \\
+\> Website \> : \> www.latex-project.org
+\end{tabbing}
+\end{document}
+```
+
+\emph{Info:} 表示强调；\LaTeX 也是对Latex的格式化输出；
+
+
+## 使用 tabular 添加表格线  ##
+
+```latex
+\documentclass{article}
+\newcommand{\head}[1]{\textnormal{\textbf{#1}}}
+\begin{document}
+\begin{tabular}{ccc}
+\hline
+\head{Command} & \head{Declaration} & \head{Output}\\
+\hline
+\verb|\textrm| & \verb|\rmfamily| & \rmfamily Example text\\
+\verb|\textsf| & \verb|\sffamily| & \sffamily Example text\\
+\verb|\texttt| & \verb|\ttfamily| & \ttfamily Example text\\
+\hline
+\end{tabular}
+\end{document}
+```
+
+用 tabular 环境制作一个四周带边线的表格，并用合并列命令生成表格标题
+
+```latex
+\documentclass{article}
+\newcommand{\head}[1]{\textnormal{\textbf{#1}}}
+\begin{document}
+\begin{tabular}{|l|c|r|}
+\hline
+\multicolumn{3}{|c|}{Sample Tabular}\\
+\hline
+col head & col head& col head\\
+\hline
+Left & centered& right\\
+\cline{1-2}
+aligned & items & aligned\\
+\cline{2-3}
+items & items & items\\
+\cline{1-2}
+Left items& centered& right\\
+\hline
+\end{tabular}
+\end{document}
+```
+
+```latex
+\documentclass{article}
+\begin{document}
+\newcounter{Rownumber} 
+\newcommand{\Rown}{\stepcounter{Rownumber}\theRownumber}
+\begin{tabular}{|c|c|c|}
+\hline
+No. & material &temperature coefficient of resistance (TCR)\\
+\hline
+\Rown & silver & 0.003 8\\
+\hline
+\Rown &copper&  0.003 9\\
+\hline
+\Rown &aluminum& 0.003 9\\
+\hline
+\end{tabular}
+\end{document}
+```
+
+## 美化表格 ##
+
+Danie Els  和 Simon Fear 编写的 booktabs  表格线宏包提供了一组命令，专门用于绘制水平表格线，其特点是水平线的粗细可以任意设置，水平线的上方和下方附加一段垂直空白，其高度也可任意设置。
+
+```latex
+\documentclass{article}
+\usepackage{booktabs}
+\newcommand{\head}[1]{\textnormal{\textbf{#1}}}
+\begin{document}
+\begin{tabular}{ccc}
+\toprule[1.5pt]
+\head{Command} & \head{Declaration} & \head{Output}\\
+\midrule
+\verb|\textrm| & \verb|\rmfamily| & \rmfamily Example text\\
+\verb|\textsf| & \verb|\sffamily| & \sffamily Example text\\
+\verb|\texttt| & \verb|\ttfamily| & \ttfamily Example text\\
+\bottomrule[1.5pt]
+\end{tabular}
+\end{document}
+```
+
+
+```latex
+\documentclass{article}
+\usepackage{booktabs}
+\newcommand{\head}[1]{\textnormal{\textbf{#1}}}
+\begin{document}
+\begin{tabular}{@{}*3l@{}}
+\toprule[1.5pt]
+\multicolumn{2}{c}{\head{Input}} &
+\multicolumn{1}{c}{\head{Output}}\\
+\head{Command} & \head{Declaration} & \\
+\cmidrule(r){1-2}\cmidrule(l){3-3}
+\verb|\textrm| & \verb|\rmfamily| & \rmfamily Example text\\
+\verb|\textsf| & \verb|\sffamily| & \sffamily Example text\\
+\verb|\texttt| & \verb|\ttfamily| & \ttfamily Example text\\
+\bottomrule[1.5pt]
+\end{tabular}
+\end{document}
+```
+
+## 带表头的表格 ##
+
+```latex
+\documentclass{article}
+\usepackage{booktabs}
+\newcommand{\head}[1]{\textnormal{\textbf{#1}}}
+\begin{document}
+\begin{table}\label{T1}
+\centering
+\caption{This a table with caption} 
+\begin{tabular}{@{}*3l@{}}
+\toprule[1.5pt]
+\multicolumn{2}{c}{\head{Input}} &
+\multicolumn{1}{c}{\head{Output}}\\
+\head{Command} & \head{Declaration} & \\
+\cmidrule(r){1-2}\cmidrule(l){3-3}
+\verb|\textrm| & \verb|\rmfamily| & \rmfamily Example text\\
+\verb|\textsf| & \verb|\sffamily| & \sffamily Example text\\
+\verb|\texttt| & \verb|\ttfamily| & \ttfamily Example text\\
+\bottomrule[1.5pt]
+\end{tabular}
+\end{table}
+\end{document}
+```
+
+## 带注释的表格 ##
+
+```latex
+\documentclass[11pt,a4paper,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+
+\begin{document}
+  \begin{table}[!ht]
+    \caption{A table with notes}\label{tab:tablenotes}
+    \centering
+    \begin{threeparttable}
+      \begin{tabular}{*4{c}}\toprule
+        Table head\tnote{1} & Table head\tnote{1} & Table head\tnote{2} & Table head\tnote{2} \\ \midrule
+        Some values & Some values & Some values & Some values \\
+        Some values & Some values & Some values & Some values \\
+        Some values & Some values & Some values & Some values \\
+        Some values & Some values & Some values & Some values \\ \bottomrule
+      \end{tabular}
+      \begin{tablenotes}
+        \footnotesize
+        \item[1] The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+        \item[2] The quick brown fox jumps over the lazy dog.
+      \end{tablenotes}
+    \end{threeparttable}
+  \end{table}
+\end{document}
+```
+
+## 插入图像 ##
+
+一段文字到版面底部没有排完，系统可将剩余部分移至下一页的顶部继续排。而一个插图或表格被整体装入一个盒子不能拆分，如遇当前页剩余空间排不下时，系统只能将整个插图或表格移至下一页的顶部，这会给当前页留下大片空白，而且图表标题的位置也被打乱。 
+
+## 浮动环境 ##
+
+为了能够解决上述问题，系统提供了一个 figure  图形浮动环境、一个 table  表格
+浮动环境和一个\caption  图表标题命令，它们的命令结构分别为: 
+
+	\begin{figure} [位置] 
+	插图命令或绘图环境 
+	\caption[目录标题内容]{标题内容} 
+	\end{figure} 
+
+	\begin{table} [位置] 
+	\caption[目录标题内容]{标题内容〉 
+	表格环境 
+	\end{table} 
+
+## 图表标题命令 ##
+
+```latex
+\documentclass[a5paper]{article}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage[demo]{graphicx}
+\pagestyle{empty}
+\begin{document}
+\section{Including a picture}
+\blindtext
+\begin{figure}
+\centering
+\includegraphics{test}
+\caption{Test figure}
+\end{figure}
+\blindtext
+\end{document}
+```
+
+## 使用 subfigure 包生成并排的子图 ##
+
+```latex
+\documentclass[a5paper]{article}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\pagestyle{empty}
+\begin{document}
+\section{Including picture}
+\begin{figure}[htbp]
+\begin{center}
+{\subfigure{\includegraphics[width=0.45\textwidth, height=4cm]{Fig2a.eps}\label{f2a}}
+\subfigure{\includegraphics[width=0.45\textwidth, height=4cm]{Fig2b.eps}\label{f2b}}}
+\caption{ The mutual information versus signal-dependent noise intensity for different values of $N$. (a) From top to bottom, the curves of mutual information $I$ are plotted for $N=32,16,8,4,2,1$ and $M=1$; (b) From top to bottom, the curves of mutual information $I$ are plotted for $N=32,16,8,4,2,1$ and $M=16$.}\label{F:2}
+\end{center}
+\end{figure}
+\end{document}
+```
+
+# 交互引用 #
+
+我们的文档可能会包含许多页面、章节、列表、图形和表格。另外，如果你在文档中书写数学公式、定理、定义等，你可能需要对之编号。我们进行编号不止是想进行计数，更有可能在文档其他地方引用。例如，你可能想引用第三章的第9 个图，你可能需要写为“见图 3.9”。 
+
+LaTeX 可以自动计数，如果你插入其他的图形，LaTeX 会自动调整计数。下面我
+们讲解如何引用。 
+
+## 设置标签并引用 ##
+
+```latex
+\documentclass{book}
+\begin{document}
+\chapter{Statistics}
+\section{Most used packages on arXiv.org}\label{sec:packages}
+The Top Five packages, used on arXiv.org\footnote{according
+to the arXMLiv project\label{fn:project}}:
+\begin{enumerate}
+\item graphicx
+\item amssymb \label{item:amssymb}
+\item amsmath \label{item:amsmath}
+\item epsfig
+\item amsfonts
+\end{enumerate}
+\chapter{Mathematics}
+\emph{amsmath}, on position \ref{item:amsmath} of the top list
+in section~\ref{sec:packages} on page~\pageref{sec:packages},
+is indispensable to high-quality mathematical typesetting in
+\LaTeX.\emph{amssymb}, on position \ref{item:amssymb},
+provides a huge amount of math symbols.
+See also the footnote on page~\pageref{fn:project}.
+\end{document}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```latex
+
+```
+
+
+
+
+
+
+
+
+
 
 
 
