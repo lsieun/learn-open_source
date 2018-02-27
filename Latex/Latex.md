@@ -50,6 +50,7 @@ WinEdt修改字体大小
 
 	Options-->Preferences-->Font
 
+
 LaTeX小技巧——File ended while scanning use of \@writefile错误的
 
 http://blog.sina.com.cn/s/blog_631a4cc40101otu6.html
@@ -856,8 +857,7 @@ See also the footnote on page~\pageref{fn:project}.
 
 
 
-
-
+[A simple guide to LaTeX - Step by Step](https://www.latex-tutorial.com/tutorials/)
 
 
 
