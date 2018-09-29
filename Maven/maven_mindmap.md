@@ -26,6 +26,11 @@ mvn depenct jars         maven conf                 mvn commands
 ----------------------------------------------------------------------------
 maven software view
 
+
+
+
+dependency -> POM inheritance and dependency grouping
+two effective ways to manage dependencies: POM inheritance and dependency grouping
 ```
 
 The `src/main/java` directory contains **the project source code**, the `src/test/java` directory contains **the test source**, and the `pom.xml` file is the project's Project Object Model, or POM. `The pom.xml` file is **the core of a project's configuration** in Maven. 
