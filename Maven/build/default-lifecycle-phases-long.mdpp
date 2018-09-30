@@ -1,0 +1,30 @@
+- `validate` : This phase validates the project `POM` file and makes sure all the necessary information related to carry out the **build** is available.
+- ------------------------
+- `initialize` : This phase initializes **the build** by setting up the right directory structure and initializing properties.
+- ------------------------
+- `generate-sources` : This phase generates any required source code.
+- `process-sources` : This phase processes the generated source code. For example, there can be a plugin running in this phase to filter the source code based on some defined criteria.
+- `generate-resources` : This phase generates any resources that need to be packaged with the final artifact.
+- `process-resources` : This phase processes the generated resources. It copies the resources to their  destination directories and makes them ready for packaging.
+- `compile` : This phase compiles the source code.
+- `process-classes` : This phase can be used to carry out any bytecode enhancements after the `compile` phase.
+- ------------------------
+- `generate-test-sources` : This phase generates the required source code for tests.
+- `process-test-sources` : This phase processes the generated test source code. For example, there can be a plugin running in this phase to filter the source code based on some defined criteria.
+- `generate-test-resources` : This phase generates all the resources required to run tests.
+- `process-test-resources` : This phase processes the generated test resources. It copies the resources to their destination directories and makes them ready for testing.
+- `test-compile` : This phase compiles the source code for tests.
+- `process-test-classes` : This phase can be used to carry out any bytecode enhancements after the `test-compile` phase.
+- `test` : This phase executes tests using the appropriate unit test framework.
+- ------------------------
+- `prepare-package` : This phase is useful in organizing the artifacts to be packaged.
+- `package` : This phase packs the artifacts into a distributable format, for example, `JAR` or `WAR`.
+- `pre-integration-test` : This phase performs the actions required (if any) before running integration tests. This may be used to start any external application servers and deploy the artifacts into different test environments.
+- `integration-test` : This phase runs integration tests.
+- `post-integration-test` : This phase can be used to perform any cleanup tasks after running the integration tests.
+- `verify` : This phase verifies the validity of the package. The criteria to check the validity needs to be defined by the respective plugins.
+- ------------------------
+- `install` : This phase installs the final artifact in **the local repository**.
+- ------------------------
+- `deploy` : This phase deploys the final artifact to **a remote repository**.
+- ------------------------
