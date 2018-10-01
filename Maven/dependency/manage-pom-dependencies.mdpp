@@ -6,21 +6,11 @@ In a large-scale development project with hundreds of Maven modules, managing de
 > （1）POM inheritance  
 > （2）dependency grouping
 
-1\.  [POM inheritance](#pominheritance)  
-1.1\.  [parent POM](#parentpom)  
-1.2\.  [child POM](#childpom)  
-2\.  [Dependency Grouping](#dependencygrouping)  
-2.1\.  [single POM](#singlepom)  
-2.2\.  [引用single POM](#引用singlepom)  
-3\.  [Refer](#refer)  
+!TOC
 
-<a name="pominheritance"></a>
+## POM inheritance
 
-## 1\. POM inheritance
-
-<a name="parentpom"></a>
-
-### 1.1\. parent POM
+### parent POM
 
 With **POM inheritance**, **the parent POM file** has to define all the common dependencies used by **its child modules** under the `<dependencyManagement>` section. 
 
@@ -54,9 +44,7 @@ This way we can avoid any duplicate dependencies. Also, if we have to update the
 > 上面是讲Parent POM的配置  
 > 下面是讲Child POM的配置
 
-<a name="childpom"></a>
-
-### 1.2\. child POM
+### child POM
 
 Here, you will see only `groupId` and `artifactId` of a given dependency but not `version` . The `version` of each dependency is managed through the `dependencyManagement` section of **the parent POM file**. If any child Maven module wants to override the version of an inherited dependency, it can simply add the `version` element:
 
@@ -73,17 +61,13 @@ Here, you will see only `groupId` and `artifactId` of a given dependency but not
 </dependencies>
 ```
 
-<a name="dependencygrouping"></a>
-
-## 2\. Dependency Grouping
+## Dependency Grouping
 
 The second approach to manage dependencies is through **dependency grouping**. **All the common dependencies** can be grouped into **a single POM file**. This approach is much better than **POM inheritance**. Here, you do not need to add references to individual dependencies.
 
 > Dependency的思想就是，将多个common dependencies封装到一个pom文件中，然后再引用这个单独的pom文件。
 
-<a name="singlepom"></a>
-
-### 2.1\. single POM
+### single POM
 
 To avoid the dependency duplication, we can create a Maven module with all the previously mentioned five dependencies as shown in the following code. Make sure to set the value of the `<packaging>` element to `pom` :
 
@@ -126,9 +110,7 @@ To avoid the dependency duplication, we can create a Maven module with all the p
 </project>
 ```
 
-<a name="引用singlepom"></a>
-
-### 2.2\. 引用single POM
+### 引用single POM
 
 Now, you only need to add a dependency to the `com.packt.axis2-client` module, as follows:
 
@@ -150,8 +132,6 @@ Now, you only need to add a dependency to the `com.packt.axis2-client` module, a
 </project>
 ```
 
-<a name="refer"></a>
-
-## 3\. Refer
+## Refer
 
 - To know more about dependency management, refer to **Introduction to the Dependency Mechanism** at [Link](http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html)
