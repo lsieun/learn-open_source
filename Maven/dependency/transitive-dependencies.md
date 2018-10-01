@@ -1,5 +1,7 @@
 # Transitive dependencies
 
+## Transitive dependencies
+
 The transitive dependency feature was introduced in Maven 2.0, which automatically identifies **the dependencies** of **your project dependencies** and get them all into the build path of your project.
 
 > 是什么。  
@@ -27,7 +29,62 @@ $ mvn dependency:analyze
 
 The **Maven dependency plugin** has several goals to find out inconsistencies and possible loopholes in your dependency management. For more details on this, refer to http://maven.apache.org/plugins/maven-dependency-plugin/.
 
+## Dependency mediation
 
+```txt
+mediation
+US[ˌmɪdɪˈeɪʃ(ə)n]
+n.调解
+```
 
+**Dependency mediation** - this **determines what version of an artifact will be chosen** when multiple versions are encountered as dependencies. 
 
+> 这里主要是讲Transitive dependencies的“传递规则”。
 
+Maven picks the "**nearest definition**". That is, it uses the version of the closest dependency to your project in the tree of dependencies.  "**nearest definition**" means that the version used will be the closest one to your project in the tree of dependencies. 
+
+> 讲述“传递规则”是怎么样的。
+
+For example, if dependencies for A, B, and C are defined as A -> B -> C -> D 2.0 and A -> E -> D 1.0, then D 1.0 will be used when building A because the path from A to D through E is shorter. You could explicitly add a dependency to D 2.0 in A to force the use of D 2.0.
+
+> 举例说明之。
+
+You can always guarantee a version by **declaring it explicitly in your project's POM**. Note that if two dependency versions are at the same depth in the dependency tree, the first declaration wins.
+
+> 显式声明。
+
+## Dependency exclusion
+
+**Dependency exclusion** helps avoid getting a selected set of **transitive dependencies**.
+
+> Dependency exclusion是为了解决transitive dependency的“传递规则”中造成的问题。
+
+```xml
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.packt</groupId>
+    <artifactId>jose.war</artifactId>
+    <version>1.0.0</version>
+    <version>war</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.packt</groupId>
+            <artifactId>jose</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.packt</groupId>
+            <artifactId>jose.ext</artifactId>
+            <version>1.0.0</version>
+            <!-- 注意：这里使用了exclusions -->
+            <exclusions>
+                <exclusion>
+                    <groupId>net.minidev</groupId>
+                    <artifactId>json-smart</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+</project>
+```
