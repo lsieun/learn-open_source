@@ -204,7 +204,7 @@ Now, if we run `mvn help:effective-pom` against the last POM file, we will see t
 | :------: | :--------------: | :------: |
 | compile  |     :smile:      | :smile:  |
 | provided |     :smile:      |  :cry:   |
-| runtime  |     :smile:      |  :cry:   |
+| runtime  |      :cry:       |  :smile: |
 |   test   |      :cry:       |  :cry:   |
 |  system  |     :smile:      |  :cry:   |
 |  import  |                  |          |
