@@ -67,10 +67,8 @@ In Maven, you cannot simply execute a lifecycle by its name—it has to be the n
 
 When you type `mvn clean`, it executes all the phases defined in the `clean` lifecycle up to and including the `clean` phase. 
 
-- The clean lifecycle
-    - pre-clean
-    - clean
-    - post-clean
+!INCLUDE "clean-lifecycle-phases-short.mdpp"
+
 Don't be confused; in this command, `clean` is not the name of the lifecycle, it's the name of a phase. It's only a coincidence that the name of the phase happens to be the name of the lifecycle. 
 
 
@@ -79,37 +77,8 @@ Don't be confused; in this command, `clean` is not the name of the lifecycle, it
 
 When you run the command `mvn clean install`, it will execute all the phases from the `default` lifecycle up to and including the `install` phase. 
 
-- The default lifecycle
-    - validate
-    - --------------------
-    - initialize
-    - --------------------
-    - generate-sources
-    - process-sources
-    - generate-resources
-    - process-resources
-    - **compile**
-    - process-classes
-    - --------------------
-    - generate-test-sources
-    - process-test-sources
-    - generate-test-resources
-    - process-test-resources
-    - test-compile
-    - process-test-classes
-    - **test**
-    - --------------------
-    - prepare-package
-    - **package**
-    - pre-integration-test
-    - integration-test
-    - post-integration-test
-    - verify
-    - --------------------
-    - **install**
-    - --------------------
-    - **deploy**
-    - --------------------
+!INCLUDE "default-lifecycle-phases-short.mdpp"
+
 
 To be precise, Maven will first execute all the phases in `clean` lifecycle up to and including the `clean` phase, and will then execute the `default` lifecycle up to and including the `install` phase.
 

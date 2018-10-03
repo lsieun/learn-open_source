@@ -1,7 +1,8 @@
 # Standard lifecycles in Maven
 
+More details about Maven lifecycles can be found at http://maven.apache.org/ref/3.2.3/maven-core/lifecycles.html.
+
 1\.  [The clean lifecycle](#thecleanlifecycle)  
-1.1\.  [phase: `pre-clean` and `post-clean`](#phase:`pre-clean`and`post-clean`)  
 2\.  [The default lifecycle](#thedefaultlifecycle)  
 3\.  [The site lifecycle](#thesitelifecycle)  
 
@@ -23,25 +24,6 @@ The `clean` lifecycle defines three phases: `pre-clean` , `clean` , and `post-cl
     - pre-clean
     - clean
     - post-clean
-
-
-<a name="phase:`pre-clean`and`post-clean`"></a>
-
-### 1.1\. phase: `pre-clean` and `post-clean`
-
-The objective of the `pre-clean` phase is to perform any operations prior to the cleaning task and the objective of the `post-clean` phase is to perform any operations after the cleaning task. 
-
-> 两个phase的作用。
-
-The `pre-clean` and `post-clean` phases of the `clean` lifecycle do not have any plugin bindings. 
-
-> 两个phase没有任何plugin绑定。
-
-If you need to associate any plugins with these two phases, you simply need to add them to the corresponding plugin configuration.
-
-> 如果有需要，就使用它们两个phase。
-
-我可以做一个播放音乐的功能，在开始之前播放一段音乐，在结束之后播放一段音乐。
 
 <a name="thedefaultlifecycle"></a>
 
@@ -83,7 +65,7 @@ The `default` lifecycle in Maven defines **23 phases**.
 
 > You cannot define **the same phase** in **two different lifecycles**.
 
-When you run the command `mvn clean install`, it will execute all the phases from the `default` lifecycle up to and including the `install` phase. To be precise, Maven will first execute all the phases in `clean` lifecycle up to and including the `clean` phase, and will then execute the `default` lifecycle up to and including the `install` phase.
+
 
 The following points summarize all the phases defined under the `default`
 lifecycle in their order of execution:
@@ -118,24 +100,7 @@ lifecycle in their order of execution:
 - ------------------------
 - `deploy` : This phase deploys the final artifact to **a remote repository**.
 - ------------------------
-**The phases in the `default` lifecycle do not have any associated plugin goals**. The plugin bindings for each phase are defined by the corresponding packaging. If the
-type of packaging of your Maven project is `JAR`, then it will define its own set of plugins for each phase. If the packaging type is `WAR`, then it will have its own set of plugins. 
 
-The `packaging` type of a given Maven project is defined under the `<packaging>` element in the `pom.xml` file. If the element is omitted, then Maven assumes it as `jar` packaging.
-
-```xml
-<groupId>lsieun</groupId>
-<artifactId>aegis</artifactId>
-<version>1.0-SNAPSHOT</version>
-<!-- packaging的默认值是jar。 -->
-<packaging>jar</packaging>
-```
-
-![](images/default-lifecycle.png)
-
-```bash
-mvn help:describe -Dcmd=deploy
-```
 
 <a name="thesitelifecycle"></a>
 
@@ -148,13 +113,5 @@ The `site` lifecycle is defined with four phases: `pre-site` , `site` , `post-si
     - site
     - post-site
     - site-deploy
-
-The `site` lifecycle has no value without the Maven `site` plugin.
-
-> 如果离开了site plugin，site lifecycle本身并没有多大的意义。  
-> have no value，不是“没有参数值”，而是“没有价值、没有意义”。
-
-> 上面是site lifecycle;  
-> 下面是site plugin
 
 

@@ -10,29 +10,37 @@ mvn command
 
 > The standard Maven lifecycles and their associated bindings are defined under the file `META-INF/plexus/components.xml` of `MAVEN_HOME/lib/maven-core-3.x.x.jar`. [Link](components-a.xml)
 
-1\.  [phase and goals](#phaseandgoals)  
-- 1.1\.  [phase](#phase)  
-- 1.2\.  [plugin goals](#plugingoals)  
+1\.  [Phase and Plugin Goals](#phaseandplugingoals)  
+1.1\.  [Phase](#phase)  
+1.2\.  [Plugin Goals](#plugingoals)  
+1.3\.  [maven命令查看clean生命周期的绑定关系](#maven命令查看clean生命周期的绑定关系)  
+1.4\.  [site lifecycle bindings](#sitelifecyclebindings)  
+1.5\.  [maven命令查看site生命周期的绑定关系：](#maven命令查看site生命周期的绑定关系：)  
+2\.  [Lifecycle Binding: `default`](#lifecyclebinding:`default`)  
+2.1\.  [default lifecycle without bindings](#defaultlifecyclewithoutbindings)  
+2.2\.  [packaging](#packaging)  
+2.3\.  [packaging: jar](#packaging:jar)  
+2.4\.  [packaging: war](#packaging:war)  
 
-<a name="phaseandgoals"></a>
+<a name="phaseandplugingoals"></a>
 
-## 1\. phase and goals
+## 1\. Phase and Plugin Goals
 
 <a name="phase"></a>
 
-### 1.1\. phase
+### 1.1\. Phase
 
 A phase in a lifecycle is just **an ordered placeholder** in the build execution path. For example, the `clean` phase in the `clean` lifecycle cannot do anything on its own. When you type `mvn clean`, it cleans out project's working directory (by default, it's the `target` directory). This is done via **the Maven clean plugin**.
 
 > 每个phase的本质是一个placeholder。
 
-The `plugin goal` to `lifecycle phase` **mapping** can be provided through **the application `POM` file**. If not, it will be inherited from **the super POM file**. The super POM file, which defines the `clean` plugin by default, adds the plugin to the `clean` phase of the `clean` lifecycle.
+The `plugin goal` to `lifecycle phase` **mapping** can be provided through **the application `POM` file**. If not, it will be inherited from **the super POM file**. For example, The super POM file, which defines the `clean` plugin by default, adds the plugin to the `clean` phase of the `clean` lifecycle.
 
 <a name="plugingoals"></a>
 
-### 1.2\. plugin goals
+### 1.2\. Plugin Goals
 
-To find more details about **the Maven clean plugin**, type the following command. It describes all the goals defined inside the clean plugin:
+To find more details about **the Maven clean plugin**, type the following command. It describes all the goals defined inside **the clean plugin**:
 
 ```bash
 $ mvn help:describe -Dplugin=clean
@@ -74,17 +82,28 @@ Everything in Maven is a plugin. Even the command we executed previously to get 
 
 ```bash
 $ mvn help:describe -Dplugin=help
+$ mvn help:describe -Dplugin=help -Ddetail # 查看更为详细的信息
 ``` 
 
-describe is a goal defined inside the help plugin.
+describe is a goal defined inside **the help plugin**.
 
 ## Lifecycle Binding: `clean` 
 
+### maven-clean-plugin goals
+
+The Maven Clean Plugin is a plugin that removes files generated at build-time in a project's directory.
+
+> maven-clean-plugin插件的作用
+
+查看maven-clean-plugin定义的goals：
+
+```bash
+```
+
+### clean lifecycle bindings
+
 The `clean` lifecycle is defined with an associated plugin binding to the `clean` goal of `maven-clean-plugin`. The plugin binding is defined under the element `<default-phases>`. The code is as follows:
 
-```xml
-<!-- Lifecycle clean -->
-<component>
     <role>org.apache.maven.lifecycle.Lifecycle</role>
     <implementation>org.apache.maven.lifecycle.Lifecycle</implementation>
     <role-hint>clean</role-hint>
@@ -102,7 +121,6 @@ The `clean` lifecycle is defined with an associated plugin binding to the `clean
             </clean>
         </default-phases>
     </configuration>
-</component>
 ```
 
 The following figure shows the relationship between **the Maven clean plugin goals**
@@ -110,7 +128,78 @@ and **the clean lifecycle phases**:
 
 ![](images/clean-phase-clean-goal.png)
 
+这里是通过打开**配置文件**的方式来查看phase与goal之间的绑定关系，下面介绍通过 **maven命令** 来查看phase与goal之间的绑定关系。
+
+<a name="maven命令查看clean生命周期的绑定关系"></a>
+
+### 1.3\. maven命令查看clean生命周期的绑定关系
+
+通过两种辅助命令查看phase与goal之间的绑定关系：
+
+![ mvn help:describe -Dplugin=clean```xml<!-- Lifecycle clean --><component></component>```bash mvn help:describe -Dcmd=clean](<br />
+<b>Warning</b>:  fopen() [<a href='function.fopen'>function.fopen</a>]: URL file-access is disabled in the server configuration in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Warning</b>:  fopen(http://quicklatex.com/latex3.f) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: no suitable wrapper could be found in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught exception 'Exception' with message 'POST http://quicklatex.com/latex3.f failed: fopen(http://quicklatex.com/latex3.f) [&lt;a href='function.fopen'&gt;function.fopen&lt;/a&gt;]: failed to open stream: no suitable wrapper could be found' in D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php:86
+Stack trace:
+#0 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(43): rest_helper('http://quicklat...', 'formula= mvn he...', 'POST', 'text')
+#1 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(8): render_quicklatex(' mvn help:descr...')
+#2 {main}
+  thrown in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>86</b><br />
+ " mvn help:describe -Dplugin=clean```xml<!-- Lifecycle clean --><component></component>```bash mvn help:describe -Dcmd=clean")
+```
+
+第一个命令：
+
+![ mvn help:effective-pom```bash mvn help:describe -Dcmd=clean](<br />
+<b>Warning</b>:  fopen() [<a href='function.fopen'>function.fopen</a>]: URL file-access is disabled in the server configuration in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Warning</b>:  fopen(http://quicklatex.com/latex3.f) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: no suitable wrapper could be found in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught exception 'Exception' with message 'POST http://quicklatex.com/latex3.f failed: fopen(http://quicklatex.com/latex3.f) [&lt;a href='function.fopen'&gt;function.fopen&lt;/a&gt;]: failed to open stream: no suitable wrapper could be found' in D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php:86
+Stack trace:
+#0 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(43): rest_helper('http://quicklat...', 'formula= mvn he...', 'POST', 'text')
+#1 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(8): render_quicklatex(' mvn help:effec...')
+#2 {main}
+  thrown in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>86</b><br />
+ " mvn help:effective-pom```bash mvn help:describe -Dcmd=clean")
+```
+
+Output:
+
+```txt
+'clean' is a lifecycle with the following phases: 
+
+* pre-clean: Not defined
+* clean: org.apache.maven.plugins:maven-clean-plugin:2.5:clean
+* post-clean: Not defined
+```
+
+第二个命令：
+
+```bash
+```
+
+The following code snippet shows how the `clean` goal of **the Maven clean plugin** is associated with the `clean` phase of the `clean` lifecycle:
+
+    <artifactId>maven-clean-plugin</artifactId>
+    <version>2.6.1</version>
+    <executions>
+        <!-- 关注点 -->
+        <execution>
+            <id>default-clean</id>
+            <phase>clean</phase>
+            <goals>
+                <goal>clean</goal>
+            </goals>
+        </execution>
+    </executions>
+```
+
 ### phase: `clean`
+
+
 
 这里可以看一下clean到底是做了什么呢？
 
@@ -132,6 +221,38 @@ If you need to associate any plugins with these two phases, you simply need to a
 
 ## Lifecycle Binding: `site` 
 
+### maven-site-plugin goals
+
+The `site` plugin is used to generate static HTML content for a project. The generated HTML content will also include appropriate reports corresponding to the project.
+
+> maven-site-plugin的作用
+
+The `site` plugin defines eight goals and two of them are directly associated with the phases in the `site` lifecycle. The `site` lifecycle **has no value** without the Maven `site` plugin.
+
+> 如果离开了site plugin，site lifecycle本身并没有多大的意义。  
+> have no value，不是“没有参数值”，而是“没有价值、没有意义”。
+
+查看maven-site-plugin定义的goals：
+
+![ mvn help:effective-pom```xml<plugin></plugin>```bash mvn help:describe -Dplugin=site](<br />
+<b>Warning</b>:  fopen() [<a href='function.fopen'>function.fopen</a>]: URL file-access is disabled in the server configuration in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Warning</b>:  fopen(http://quicklatex.com/latex3.f) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: no suitable wrapper could be found in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught exception 'Exception' with message 'POST http://quicklatex.com/latex3.f failed: fopen(http://quicklatex.com/latex3.f) [&lt;a href='function.fopen'&gt;function.fopen&lt;/a&gt;]: failed to open stream: no suitable wrapper could be found' in D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php:86
+Stack trace:
+#0 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(43): rest_helper('http://quicklat...', 'formula= mvn he...', 'POST', 'text')
+#1 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(8): render_quicklatex(' mvn help:effec...')
+#2 {main}
+  thrown in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>86</b><br />
+ " mvn help:effective-pom```xml<plugin></plugin>```bash mvn help:describe -Dplugin=site")
+```
+
+<a name="sitelifecyclebindings"></a>
+
+### 1.4\. site lifecycle bindings
+
+
 The `site` lifecycle is defined with the associated plugin bindings to the `site` and the `site-deploy` goals of `maven-site-plugin`. The plugin bindings are defined under the element `<default-phases>`. The code is as follows:
 
 ```xml
@@ -148,44 +269,51 @@ The `site` lifecycle is defined with the associated plugin bindings to the `site
             <phase>post-site</phase>
             <phase>site-deploy</phase>
         </phases>
+        <!-- 关注点 -->
         <default-phases>
-            <site>
-                org.apache.maven.plugins:maven-site-plugin:3.3:site
-            </site>
-            <site-deploy>
-                org.apache.maven.plugins:maven-site-plugin:3.3:deploy
-            </site-deploy>
+            <site>org.apache.maven.plugins:maven-site-plugin:3.3:site</site>
+            <site-deploy>org.apache.maven.plugins:maven-site-plugin:3.3:deploy</site-deploy>
         </default-phases>
     </configuration>
 </component>
 ```
 
-> 上面是site lifecycle;  
-> 下面是site plugin
 
-The `site` plugin is used to generate static HTML content for a project. The generated HTML content will also include appropriate reports corresponding to the project.
-
-The `site` plugin defines eight goals and two of them are directly associated with the phases in the `site` lifecycle.
-
-```bash
-mvn help:describe -Dcmd=site
-```
 
 ![](images/site-lifecycle-and-plugin.png)
 
-The `site` lifecycle has no value without the Maven `site` plugin.
 
-> 如果离开了site plugin，site lifecycle本身并没有多大的意义。  
-> have no value，不是“没有参数值”，而是“没有价值、没有意义”。
+<a name="maven命令查看site生命周期的绑定关系："></a>
+
+### 1.5\. maven命令查看site生命周期的绑定关系：
+
+```bash
+![ mvn help:describe -Dcmd=site mvn help:effective-pom](<br />
+<b>Warning</b>:  fopen() [<a href='function.fopen'>function.fopen</a>]: URL file-access is disabled in the server configuration in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Warning</b>:  fopen(http://quicklatex.com/latex3.f) [<a href='function.fopen'>function.fopen</a>]: failed to open stream: no suitable wrapper could be found in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>73</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught exception 'Exception' with message 'POST http://quicklatex.com/latex3.f failed: fopen(http://quicklatex.com/latex3.f) [&lt;a href='function.fopen'&gt;function.fopen&lt;/a&gt;]: failed to open stream: no suitable wrapper could be found' in D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php:86
+Stack trace:
+#0 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(43): rest_helper('http://quicklat...', 'formula= mvn he...', 'POST', 'text')
+#1 D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php(8): render_quicklatex(' mvn help:descr...')
+#2 {main}
+  thrown in <b>D:\Inetpub\DomainID202296\localuser\problemsetmarmoset\latex\render.php</b> on line <b>86</b><br />
+ " mvn help:describe -Dcmd=site mvn help:effective-pom")
+```
 
 
 
-## Lifecycle Binding: `default` 
+<a name="lifecyclebinding:`default`"></a>
+
+## 2\. Lifecycle Binding: `default` 
+
+<a name="defaultlifecyclewithoutbindings"></a>
+
+### 2.1\. default lifecycle without bindings
 
 The `default` lifecycle is defined without any associated lifecycle
 bindings, while both the `clean` and `site` lifecycles are defined with bindings. 
-
-
 
 Here is the definition of the `default` lifecycle without the associated **plugin** bindings:
 
@@ -226,67 +354,16 @@ Here is the definition of the `default` lifecycle without the associated **plugi
 </component>
 ```
 
+The following figure shows all the phases defined under the Maven default `lifecycle` and their order of execution:
 
-The `components.xml` file, which is also known as **the component descriptor**, describes the properties required by Maven to manage the lifecycle of a Maven project. 
+![](images/default-lifecycle.png)
 
-- `role`: The `<role>` element specifies the Java interface exposed by this lifecycle component and defines the type of the component. All the lifecycle components must have `org.apache.maven.lifecycle.Lifecycle` as role . 
-- `implementation`: The `<implementation>` tag specifies the concrete implementation of the interface. 
-- `role-hint`: **The identity of a component** is defined by the combination of the `<role>` and the `<role-hint>` elements. The `<role-hint>` element is not a mandatory element; however, if we have multiple elements of the same type, then we must define a `<role-hint>` element. Corresponding to Maven lifecycles, the name of the lifecycle is set as the value of the `<role-hint>` element.
+<a name="packaging"></a>
 
-> 注意：上面`<configuration>`标签下的`id`和`phases`和下面`Lifecycle.java`中的属性是一样的。
+### 2.2\. packaging
 
-```java
-package org.apache.maven.lifecycle;
-
-import java.util.List;
-import java.util.Map;
-import org.apache.maven.lifecycle.mapping.LifecyclePhase;
-
-public class Lifecycle
-{
-    private String id;
-    private List<String> phases;
-    private Map<String, LifecyclePhase> defaultPhases;
-  
-    public Lifecycle() {}
-    
-    public Lifecycle(String id, List<String> phases, Map<String, LifecyclePhase> defaultPhases)
-    {
-        this.id = id;
-        this.phases = phases;
-        this.defaultPhases = defaultPhases;
-    }
-    
-    public String getId()
-    {
-        return this.id;
-    }
-    
-    public List<String> getPhases()
-    {
-        return this.phases;
-    }
-    
-    public Map<String, LifecyclePhase> getDefaultLifecyclePhases()
-    {
-        return this.defaultPhases;
-    }
-    
-    @Deprecated
-    public Map<String, String> getDefaultPhases()
-    {
-        return LifecyclePhase.toLegacyMap(getDefaultLifecyclePhases());
-    }
-    
-    public String toString()
-    {
-        return this.id + " -> " + this.phases;
-    }
-}
-```
-
-**The phases in the `default` lifecycle do not have any associated plugin goals**. The plugin bindings for each phase are defined by the corresponding packaging. If the
-type of packaging of your Maven project is `JAR`, then it will define its own set of plugins for each phase. If the packaging type is `WAR`, then it will have its own set of plugins. 
+**The phases in the `default` lifecycle do not have any associated plugin goals**. The plugin bindings for each phase are defined by the corresponding `packaging`. If the
+type of `packaging` of your Maven project is `JAR`, then it will define its own set of plugins for each phase. If the `packaging` type is `WAR`, then it will have its own set of plugins. 
 
 The `packaging` type of a given Maven project is defined under the `<packaging>` element in the `pom.xml` file. If the element is omitted, then Maven assumes it as `jar` packaging.
 
@@ -298,15 +375,11 @@ The `packaging` type of a given Maven project is defined under the `<packaging>`
 <packaging>jar</packaging>
 ```
 
-![](images/default-lifecycle.png)
+<a name="packaging:jar"></a>
 
-```bash
-mvn help:describe -Dcmd=deploy
-```
+### 2.3\. packaging: jar
 
-
-
-Finally, let's have a look at how the `jar` plugin binding for the `default` lifecycle is defined. The following component element defines a plugin binding to an existing lifecycle and the associated lifecycle is defined under the `configuration/lifecycles/lifecycle/id` element:
+Let's have a look at how the `jar` plugin binding for the `default` lifecycle is defined. The following component element defines a plugin binding to an existing lifecycle and the associated lifecycle is defined under the `configuration/lifecycles/lifecycle/id` element:
 
 ```xml
 <!-- LifecycleMapping jar -->
@@ -318,6 +391,93 @@ Finally, let's have a look at how the `jar` plugin binding for the `default` lif
         <lifecycles>
             <lifecycle>
                 <id>default</id>
+                <!-- 关注点 -->
+                <phases>
+                    <process-resources>
+                        org.apache.maven.plugins:maven-resources-plugin:2.6:resources
+                    </process-resources>
+                    <compile>
+                        org.apache.maven.plugins:maven-compiler-plugin:3.1:compile
+                    </compile>
+                    <process-test-resources>
+                        org.apache.maven.plugins:maven-resources-plugin:2.6:testResources
+                    </process-test-resources>
+                    <test-compile>
+                        org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile
+                    </test-compile>
+                    <test>
+                        org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test
+                    </test>
+                    <package>org.apache.maven.plugins:maven-jar-plugin:2.4:jar</package>
+                    <install>org.apache.maven.plugins:maven-install-plugin:2.4:install</install>
+                    <deploy>org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy</deploy>
+                </phases>
+            </lifecycle>
+        </lifecycles>
+    </configuration>
+</component>
+```
+
+```bash
+mvn help:describe -Dcmd=deploy
+```
+
+Here we are using the Maven `help` plugin to find more details about the `deploy` phase corresponding to the `jar` packaging, and it will produce the following output:
+
+Output:
+
+```txt
+It is a part of the lifecycle for the POM packaging 'jar'. This lifecycle includes the following phases:
+
+* validate: Not defined
+* initialize: Not defined
+* generate-sources: Not defined
+* process-sources: Not defined
+* generate-resources: Not defined
+* process-resources: org.apache.maven.plugins:maven-resources-plugin:2.6:resources
+* compile: org.apache.maven.plugins:maven-compiler-plugin:3.1:compile
+* process-classes: Not defined
+* generate-test-sources: Not defined
+* process-test-sources: Not defined
+* generate-test-resources: Not defined
+* process-test-resources: org.apache.maven.plugins:maven-resources-plugin:2.6:testResources
+* test-compile: org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile
+* process-test-classes: Not defined
+* test: org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test
+* prepare-package: Not defined
+* package: org.apache.maven.plugins:maven-jar-plugin:2.4:jar    # 注意这里
+* pre-integration-test: Not defined
+* integration-test: Not defined
+* post-integration-test: Not defined
+* verify: Not defined
+* install: org.apache.maven.plugins:maven-install-plugin:2.4:install
+* deploy: org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy
+```
+
+The output lists out all the Maven plugins registered against different phases of the `default` lifecycle for the `jar` packaging. 
+
+The `jar` goal of `maven-jar-plugin` is registered against the `package` phase, while the `install` goal of `maven-install-plugin` is registered in the `install` phase.
+
+```txt
+package: org.apache.maven.plugins:maven-jar-plugin:2.4:jar
+install: org.apache.maven.plugins:maven-install-plugin:2.4:install
+```
+
+<a name="packaging:war"></a>
+
+### 2.4\. packaging: war 
+
+```xml
+<!-- LifecycleMapping war -->
+<component>
+    <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+    <role-hint>war</role-hint>
+    <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+    <configuration>
+        <lifecycles>
+            <lifecycle>
+                <id>default</id>
+                <!-- 关注点 -->
                 <phases>
                     <process-resources>
                         org.apache.maven.plugins:maven-resources-plugin:2.6:resources
@@ -335,7 +495,7 @@ Finally, let's have a look at how the `jar` plugin binding for the `default` lif
                         org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test
                     </test>
                     <package>
-                        org.apache.maven.plugins:maven-jar-plugin:2.4:jar
+                        org.apache.maven.plugins:maven-war-plugin:2.2:war
                     </package>
                     <install>
                         org.apache.maven.plugins:maven-install-plugin:2.4:install
@@ -349,6 +509,53 @@ Finally, let's have a look at how the `jar` plugin binding for the `default` lif
     </configuration>
 </component>
 ```
+
+
+```bash
+mvn help:describe -Dcmd=deploy
+```
+
+Let's run the previous command against a POM file having the `war` packaging. It produces the following output:
+
+Output:
+
+```txt
+It is a part of the lifecycle for the POM packaging 'war'. This lifecycle includes the following phases:
+
+* validate: Not defined
+* initialize: Not defined
+* generate-sources: Not defined
+* process-sources: Not defined
+* generate-resources: Not defined
+* process-resources: org.apache.maven.plugins:maven-resources-plugin:2.6:resources
+* compile: org.apache.maven.plugins:maven-compiler-plugin:3.1:compile
+* process-classes: Not defined
+* generate-test-sources: Not defined
+* process-test-sources: Not defined
+* generate-test-resources: Not defined
+* process-test-resources: org.apache.maven.plugins:maven-resources-plugin:2.6:testResources
+* test-compile: org.apache.maven.plugins:maven-compiler-plugin:3.1:testCompile
+* process-test-classes: Not defined
+* test: org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test
+* prepare-package: Not defined
+* package: org.apache.maven.plugins:maven-war-plugin:2.2:war    # 注意这里
+* pre-integration-test: Not defined
+* integration-test: Not defined
+* post-integration-test: Not defined
+* verify: Not defined
+* install: org.apache.maven.plugins:maven-install-plugin:2.4:install
+* deploy: org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy
+```
+
+Now if you look at the `package` phase, you will notice that we have a different plugin goal: `maven-war-plugin`.
+
+```txt
+package: org.apache.maven.plugins:maven-war-plugin:2.2:war
+```
+
+Similarly to the `jar` and `war` packaging, each of the other packaging type defines its own bindings for the `default` lifecycle.
+
+
 
 ```java
 package org.apache.maven.lifecycle.mapping;
@@ -456,7 +663,6 @@ public class DefaultLifecycleMapping implements LifecycleMapping
         return LifecyclePhase.toLegacyMap(getLifecyclePhases(lifecycle));
     }
 }
-
 ```
 
 

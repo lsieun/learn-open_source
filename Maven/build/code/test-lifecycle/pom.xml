@@ -1,0 +1,20 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.lsieun</groupId>
+    <artifactId>test-lifecycle</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Custom Lifecycle Project</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.lsieun</groupId>
+                <artifactId>custom-lifecycle</artifactId>
+                <version>1.0.0</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

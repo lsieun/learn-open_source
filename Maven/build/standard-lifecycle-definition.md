@@ -10,6 +10,7 @@ mvn command
 
 The standard Maven lifecycles and their associated bindings are defined under the file `META-INF/plexus/components.xml` of `MAVEN_HOME/lib/maven-core-3.x.x.jar`. [Link](components-a.xml)
 
+The `components.xml` file, which is also known as **the component descriptor**, describes the properties required by Maven to manage the `lifecycle` of a Maven project.
 
 ## Lifecycle: `default` 
 
@@ -52,6 +53,14 @@ The standard Maven lifecycles and their associated bindings are defined under th
 </component>
 ```
 
+配置解读：
+
+- `role`: The `<role>` element specifies the Java interface exposed by this lifecycle component and defines the type of the component. All the lifecycle components must have `org.apache.maven.lifecycle.Lifecycle` as role . 
+- `implementation`: The `<implementation>` tag specifies the concrete implementation of the interface. 
+- `role-hint`: **The identity of a component** is defined by the combination of the `<role>` and the `<role-hint>` elements. The `<role-hint>` element is not a mandatory element; however, if we have multiple elements of the same type, then we must define a `<role-hint>` element. Corresponding to Maven lifecycles, the name of the lifecycle is set as the value of the `<role-hint>` element.
+
+
+
 ## Lifecycle: `clean` 
 
 ```xml
@@ -61,7 +70,9 @@ The standard Maven lifecycles and their associated bindings are defined under th
     <implementation>org.apache.maven.lifecycle.Lifecycle</implementation>
     <role-hint>clean</role-hint>
     <configuration>
+        <!-- ID -->
         <id>clean</id>
+        <!-- phases -->
         <phases>
             <phase>pre-clean</phase>
             <phase>clean</phase>
@@ -85,7 +96,9 @@ The standard Maven lifecycles and their associated bindings are defined under th
     <implementation>org.apache.maven.lifecycle.Lifecycle</implementation>
     <role-hint>site</role-hint>
     <configuration>
+        <!-- ID -->
         <id>site</id>
+        <!-- phases -->
         <phases>
             <phase>pre-site</phase>
             <phase>site</phase>

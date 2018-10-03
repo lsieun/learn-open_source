@@ -65,5 +65,22 @@ A Maven **plugin** is a collection of **goals** where each goal is responsible f
     - mvn plugin:goal
 
 
+## 5个核心概念
 
+- lifecycle
+- phase
+- goal
+- plugin
+- maven command
 
+## lifecycle
+
+- 3个标准生命周期 [Link](standard-lifecycle.md)
+- 3个标准生命周期是如何定义的？ [Link](standard-lifecycle-definition.md)
+- 生命周期phase与插件goal之间的对应关系 [Link](lifecycle-bindings.md)
+- maven command [Link](maven-command.md)
+
+## 运行
+
+- 跳过测试 [Link](skip-test.md)
+- 监测构建过程中JVM的变化 [Link](monitor-the-build.md)

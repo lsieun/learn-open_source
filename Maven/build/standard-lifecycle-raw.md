@@ -1,5 +1,7 @@
 # Standard lifecycles in Maven
 
+More details about Maven lifecycles can be found at http://maven.apache.org/ref/3.2.3/maven-core/lifecycles.html.
+
 !TOC
 
 Maven comes with three standard lifecycles: `default`, `clean`, and `site`. Each lifecycle defines its own set of phases. You cannot define **the same phase** in **two different lifecycles**.
