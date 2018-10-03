@@ -10,17 +10,11 @@ mvn command
 
 > The standard Maven lifecycles and their associated bindings are defined under the file `META-INF/plexus/components.xml` of `MAVEN_HOME/lib/maven-core-3.x.x.jar`. [Link](components-a.xml)
 
-1\.  [phase and goals](#phaseandgoals)  
-- 1.1\.  [phase](#phase)  
-- 1.2\.  [plugin goals](#plugingoals)  
+!TOC
 
-<a name="phaseandgoals"></a>
+## phase and goals
 
-## 1\. phase and goals
-
-<a name="phase"></a>
-
-### 1.1\. phase
+### phase
 
 A phase in a lifecycle is just **an ordered placeholder** in the build execution path. For example, the `clean` phase in the `clean` lifecycle cannot do anything on its own. When you type `mvn clean`, it cleans out project's working directory (by default, it's the `target` directory). This is done via **the Maven clean plugin**.
 
@@ -28,9 +22,7 @@ A phase in a lifecycle is just **an ordered placeholder** in the build execution
 
 The `plugin goal` to `lifecycle phase` **mapping** can be provided through **the application `POM` file**. If not, it will be inherited from **the super POM file**. The super POM file, which defines the `clean` plugin by default, adds the plugin to the `clean` phase of the `clean` lifecycle.
 
-<a name="plugingoals"></a>
-
-### 1.2\. plugin goals
+### plugin goals
 
 To find more details about **the Maven clean plugin**, type the following command. It describes all the goals defined inside the clean plugin:
 

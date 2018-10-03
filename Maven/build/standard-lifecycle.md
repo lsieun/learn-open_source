@@ -1,23 +1,29 @@
-# Standard lifecyelss in Maven
+# Standard lifecycles in Maven
 
 1\.  [The clean lifecycle](#thecleanlifecycle)  
 1.1\.  [phase: `pre-clean` and `post-clean`](#phase:`pre-clean`and`post-clean`)  
 2\.  [The default lifecycle](#thedefaultlifecycle)  
 3\.  [The site lifecycle](#thesitelifecycle)  
 
-You cannot define **the same phase** in **two different lifecycles**.
+Maven comes with three standard lifecycles: `default`, `clean`, and `site`. Each lifecycle defines its own set of phases. You cannot define **the same phase** in **two different lifecycles**.
 
-The `plugin goal` to `lifecycle phase` **mapping** can be provided through **the application `POM` file**. If not, it will be inherited from **the super POM file**. The super POM file, which defines the
-`clean` plugin by default, adds the plugin to the `clean` phase of the `clean` lifecycle.
+> 这段理解三个意思：  
+> （1）Maven提供了三种标准的生命周期：default、clean和site。  
+> （2）每个lifecycle有自己的phase。  
+> （3）在不同的lifecycle中，不能定义同名的phase。
+
 
 <a name="thecleanlifecycle"></a>
 
 ## 1\. The clean lifecycle
 
+The `clean` lifecycle defines three phases: `pre-clean` , `clean` , and `post-clean` .
+
 - The clean lifecycle
     - pre-clean
     - clean
     - post-clean
+
 
 <a name="phase:`pre-clean`and`post-clean`"></a>
 
@@ -135,12 +141,20 @@ mvn help:describe -Dcmd=deploy
 
 ## 3\. The site lifecycle
 
-The site lifecycle is defined with four phases: pre-site , site , post-site , and
-site-deploy . The site lifecycle has no value without the Maven site plugin.
-The site plugin is used to generate static HTML content for a project. The generated
-HTML content will also include appropriate reports corresponding to the project.
-The site plugin defines eight goals and two of them are directly associated with
-the phases in the site lifecycle.
+The `site` lifecycle is defined with four phases: `pre-site` , `site` , `post-site` , and `site-deploy` . 
 
+- The site lifecycle
+    - pre-site
+    - site
+    - post-site
+    - site-deploy
+
+The `site` lifecycle has no value without the Maven `site` plugin.
+
+> 如果离开了site plugin，site lifecycle本身并没有多大的意义。  
+> have no value，不是“没有参数值”，而是“没有价值、没有意义”。
+
+> 上面是site lifecycle;  
+> 下面是site plugin
 
 
