@@ -55,8 +55,12 @@ Installation [link](installation.md)
 
 生命周期
 
-- standard lifecycle [Link](build/standard-lifecycle.md)
-- lifecycle binding goals [Link](build/lifecycle-bindings.md)
+- 3个标准生命周期 [Link](build/standard-lifecycle.md)
+- 3个标准生命周期是如何定义的？ [Link](build/standard-lifecycle-definition.md)
+- 生命周期phase与插件goal之间的对应关系 [Link](build/lifecycle-bindings.md)
+- maven command [Link](build/maven-command.md)
+- 自定义生命周期 [Link](build/build-a-custom-lifecycle.md)
+
 
 运行
 
@@ -80,3 +84,8 @@ Installation [link](installation.md)
 
 - secured repository [Link](conf/secured-repositories.md)
 - encrypt credentials [Link](conf/encrypt-credentials.md)
+
+
+TODO
+
+mvn help:effective-pom  应该在parent POM中讲到。
