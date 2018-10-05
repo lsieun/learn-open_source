@@ -1,0 +1,31 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.lsieun.plugins</groupId>
+    <artifactId>plugin-consumer</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>Maven Plugin Consumer Project</name>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.lsieun.plugins</groupId>
+                <artifactId>mail-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <emailList>lucy@qq.com,lily@qq.com</emailList>
+                    <mailServer>mail.google.com</mailServer>
+                    <password>password</password>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>post-integration-mail</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>mail</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

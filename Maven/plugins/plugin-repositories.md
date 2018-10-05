@@ -1,6 +1,6 @@
 # Plugin repositories
 
-Maven downloads plugins on demand when it cannot find a plugin in **its local repository**. By default, Maven looks for any plugin that is not available locally in **the Maven plugin repository** defined by the super POM file (this is the default behavior; you can also define plugin epositories in the application POM file). The following code snippet shows how to define plugin repositories:
+Maven downloads plugins on demand when it cannot find a plugin in **its local repository**. By default, Maven looks for any plugin that is not available locally in **the Maven plugin repository** defined by the super POM file (this is the default behavior; you can also define plugin repositories in the application POM file). The following code snippet shows how to define plugin repositories:
 
 ```xml
 <pluginRepositories>
