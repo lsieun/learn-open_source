@@ -48,7 +48,7 @@ Installation [link](installation.md)
 ## Repository - pom.xml
 
 - Repository 
-- Plugin Repository
+- Plugin Repository [Link](plugins/plugin-repositories.md)
 - Distribution Repository [Link](repo/distribution-repository.md)
 
 ## Build
@@ -67,6 +67,55 @@ Installation [link](installation.md)
 - Monitoring the build [Link](build/monitor-the-build.md)
 - skip test [Link](build/skip-test.md)
 
+## 插件
+
+clean生命周期
+
+- maven-clean-plugin [Link](plugins/maven-clean-plugin.md)
+
+default生命周期
+
+- maven-compiler-plugin [Link](plugins/maven-compiler-plugin.md)
+- maven-resources-plugin [Link](plugins/maven-resources-plugin.md)
+- maven-surefire-plugin [Link](plugins/maven-surefire-plugin.md)
+- maven-jar-plugin [Link](plugins/maven-jar-plugin.md)
+- maven-source-plugin [Link](plugins/maven-source-plugin.md)
+- maven-install-plugin [Link](plugins/maven-install-plugin.md)
+- maven-deploy-plugin [Link](plugins/maven-deploy-plugin.md)
+- maven-release-plugin [Link](plugins/maven-release-plugin.md)
+
+site生命周期
+
+- maven-site-plugin [Link](plugins/maven-site-plugin.md)
+
+其他插件：
+
+- maven-archetype-plugin [Link](plugins/maven-archetype-plugin.md)
+- maven-dependency-plugin [Link](plugins/maven-dependency-plugin.md)
+- maven-eclipse-plugin [Link](plugins/maven-eclipse-plugin.md)
+- maven-help-plugin [Link](plugins/maven-help-plugin.md)
+
+插件发现与执行
+
+- plugin discovery [Link](plugins/plugin-discovery.md)
+- plugin execution [Link](plugins/plugin-execution.md)
+- plugin as an extension [Link](plugins/plugin-as-an-extension.md)
+
+Plugin management and repository
+
+- plugin management [Link](plugins/plugin-management.md)
+- plugin repository [Link](plugins/plugin-repositories.md)
+
+IOC框架
+
+- Plexus [Link](plugins/plexus.md)
+- Google Guice [Link](plugins/google-guice.md)
+
+
+自定义插件
+
+- 自定义插件 [Link](plugins/develop-custom-plugins.md)
+- 自定义插件补充 [Link](plugins/develop-custom-plugins-extra.md)
 
 ## settings.xml
 

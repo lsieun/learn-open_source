@@ -1,4 +1,4 @@
-#Deploying artifacts
+# Deploying artifacts
 
 To deploy artifacts into a Maven repository, we need to define a `<distributionManagement>` configuration element in **the application POM file** of the
 root Maven module. 
