@@ -138,3 +138,8 @@ IOC框架
 TODO
 
 mvn help:effective-pom  应该在parent POM中讲到。
+
+
+Maven provides an extensible architecture via **plugins** and **lifecycles**. Archive types such as .jar , .war , .ear , and many more are supported by plugins and associated lifecycles. The JAR plugin creates an artifact with the `.jar` extension and the relevant metadata, according to the JAR specification. The JAR file is, in fact, a ZIP file with the optional `META-INF` directory. You can find more details about the JAR specification from http://docs.oracle.com/javase/7/docs/technotes/guides/jar/jar.html.
+
+> 读了上面的这一段话，我开始思考Lifecycle和Plugin之间的关系。Maven的本质是一个plugin execution framework（插件执行框架），它工作的主要内容其实是由plugin来提供的。说到此处，我不禁想到一个问题：如果要在Lifecycle和Plugin中，选择一个从Maven去除掉，那么去掉的那个会是哪个呢？我的回答是去掉Lifecycle，理由是真正的工作是由Plugin来完成的，而Lifecycle的作用是形成一套流程，称之为“生命周期”，目的是为了便于执行一系列的plugin goal。
