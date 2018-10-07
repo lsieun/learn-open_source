@@ -11,3 +11,12 @@ However, when you build a product, you might need to aggregate many JAR files fr
 ![](images/maven-plugin-assembly.png)
 
 The Maven `assembly` plugin produces a custom archive, which adheres to a user-defined layout. This custom archive is also known as the **Maven assembly**. In other words, it's a distribution unit, which is built according to a custom layout.
+
+
+
+- The assembly plugin [Link](maven-assembly-plugin.md)
+- The assembly descriptor [Link](the-assembly-descriptor.md)
+- A runnable, standalong Maven Project [Link](a-runnable-standalong-maven-project.md)
+
+
+
