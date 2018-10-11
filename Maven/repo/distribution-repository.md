@@ -1,7 +1,6 @@
 # Deploying artifacts
 
-To deploy artifacts into a Maven repository, we need to define a `<distributionManagement>` configuration element in **the application POM file** of the
-root Maven module. 
+To deploy artifacts into a Maven repository, we need to define a `<distributionManagement>` configuration element in **the application POM file** of the root Maven module. 
 
 At the time of writing this book, Maven supports SSH, SFTP, FTP, and file-based artifact deployment. Let's have a look at how file-based artifact deployment works.
 
