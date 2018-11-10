@@ -92,34 +92,7 @@ $ sudo ./nexus run
 
 Starting the repository manager with the `run` command will leave it running in the current shell and display the log output.
 
-Sample log:
-
-```txt
-- Properties:
--   application-host='0.0.0.0'
--   application-port='8081'
--   fabric.etc='/opt/nexus-3.13.0-01/etc/fabric'
--   jetty.etc='/opt/nexus-3.13.0-01/etc/jetty'
--   karaf.base='/opt/nexus-3.13.0-01'
--   karaf.data='/opt/sonatype-work/nexus3'
--   karaf.etc='/opt/nexus-3.13.0-01/etc/karaf'
--   karaf.home='/opt/nexus-3.13.0-01'
--   karaf.instances='/opt/sonatype-work/nexus3/instances'
--   logback.etc='/opt/nexus-3.13.0-01/etc/logback'
--   nexus-args='/opt/nexus-3.13.0-01/etc/jetty/jetty.xml,/opt/nexus-3.13.0-01/etc/jetty/jetty-http.xml,/opt/nexus-3.13.0-01/etc/jetty/jetty-requestlog.xml'
--   nexus-context-path='/'
--   nexus-edition='nexus-pro-edition'
--   nexus-features='nexus-pro-feature'
--   ssl.etc='/opt/nexus-3.13.0-01/etc/ssl'
-
-- Java: 1.8.0_161, OpenJDK 64-Bit Server VM, Oracle Corporation, 25.161-b14
-- OS: Linux, 3.10.0-862.el7.x86_64, amd64
-- User: root, en, /root
-- CWD: /opt/nexus-3.13.0-01
-- TMP: /opt/sonatype-work/nexus3/tmp
-```
-
-Startup is complete when the log shows the message "**Started Sonatype Nexus**".
+**Startup is complete** when the log shows the message "**Started Sonatype Nexus**".
 
 ```txt
 - Started ServerConnector@4e4ee459{HTTP/1.1,[http/1.1]}{0.0.0.0:8081}
@@ -132,7 +105,9 @@ Started Sonatype Nexus OSS 3.13.0-01
 -------------------------------------------------
 ```
 
-In order to shut down the repository manager running via the `run` command, you have to press `CTRL-C`.
+In order to **shut down** the repository manager running via the `run` command, you have to press `CTRL-C`.
+
+---
 
 ### 2.2 Background Run
 
@@ -156,6 +131,8 @@ The following sections provide instructions for configuring the service manually
 
 - **Create operating system user** with limited access rights dedicated to run the repository manager as a service
 - **Configure the service** and ensure it starts as part of the operating system boot process
+
+---
 
 ### 3.1 Create a dedicated user for Nexus
 
@@ -218,6 +195,7 @@ After=network.target
   
 [Service]
 Type=forking
+LimitNOFILE=65536
 ExecStart=/opt/nexus/bin/nexus start
 ExecStop=/opt/nexus/bin/nexus stop
 User=nexus
