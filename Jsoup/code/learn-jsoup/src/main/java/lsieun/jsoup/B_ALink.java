@@ -1,4 +1,4 @@
-package com.lsieun.jsoup;
+package lsieun.jsoup;
 
 
 import org.jsoup.Jsoup;
