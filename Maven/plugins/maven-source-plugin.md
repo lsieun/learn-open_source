@@ -31,4 +31,29 @@ What is the difference between the `jar` and `source` plugins? Both create JAR f
 
 Small-scale open source projects use this approach to distribute the corresponding source code along with the binary artifacts.
 
+## Practice
 
+经过我的实验，发现：
+- （1）需要加上`<executions>`部分的内容，否则无法生成source的JAR包文件。
+- （2）生成的source的JAR包，也可以发布到maven的仓库当中去。
+
+```xml
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>default-source-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+```

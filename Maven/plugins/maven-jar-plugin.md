@@ -3,6 +3,8 @@
 URL:
 
 - https://maven.apache.org/plugins/maven-jar-plugin/
+- https://maven.apache.org/plugins/maven-jar-plugin/jar-mojo.html
+- http://maven.apache.org/shared/maven-archiver/index.html
 
 
 The `jar` plugin creates a JAR file from your Maven project. The `jar` goal of the `jar` plugin is bound to the `package` phase of the Maven `default` lifecycle. 
@@ -20,7 +22,7 @@ All the Maven projects inherit the `jar` plugin from **the super POM file**. As 
 ```xml
 <plugin>
 	<artifactId>maven-jar-plugin</artifactId>
-	<version>2.4</version>
+	<version>3.1.0</version>
 	<executions>
 		<execution>
 			<id>default-jar</id>
@@ -59,7 +61,7 @@ No main manifest attribute, in “<APP_NAME>.jar”
 			<!-- Build an executable JAR -->
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-jar-plugin</artifactId>
-			<version>2.4</version>
+			<version>3.1.0</version>
 			<configuration>
 				<archive>
 					<manifest>
@@ -87,6 +89,143 @@ java -jar AppTest-0.0.1-SNAPSHOT.jar
 ```
 
 
+# 拷贝依赖的jar包，并将新生成的classpath添加到新生成的jar的manifest文件中
+
+```xml
+    <build>
+        <finalName>agent</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <!-- 关注点 -->
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>lsieun.javaagent.gui.GUIMain</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Premain-Class>lsieun.javaagent.SimpleAgent</Premain-Class>
+                            <Can-Redefine-Classes>false</Can-Redefine-Classes>
+                            <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>lib-copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+## Maven: Exclude “META-INF/maven” folder from JAR
+
+URL: https://stackoverflow.com/questions/46959965/maven-exclude-meta-inf-maven-folder-from-jar/46960549#46960549
+
+The `maven-jar-plugin` uses the `maven-archiver` to handle packaging. It provides the configuration `addMavenDescriptor`, which is `true` by default. Setting it to `false` should remove the `META-INF/maven` directory.
 
 
+```xml
+<archive>
+   <addMavenDescriptor>false</addMavenDescriptor>
+   ....
+</archive>
+```
+
+## Use Your Own Manifest File
+
+URL: https://maven.apache.org/shared/maven-archiver/examples/manifestFile.html
+
+By default, **Maven Archiver** creates the manifest file for you. It is sometimes useful to use your own hand crafted manifest file. Say that you want to use the manifest file `src/main/resources/META-INF/MANIFEST.MF`. This is done with the `<manifestFile>` configuration element by setting the value to the location of your file.
+
+```txt
+Manifest-Version: 1.0
+Built-By: ${user.name}
+Build-Jdk: ${java.version}
+Created-By: Apache Maven
+Archiver-Version: Plexus Archiver
+```
+
+The content of your own manifest file will be merged with the entries created by Maven Archiver. If you specify an entry in your own manifest file it will override the value created by Maven Archiver.
+
+Note: As with all the examples here, this configuration can be used in all plugins that use **Maven Archiver**, not just `maven-jar-plugin` as in this example.
+
+```xml
+<project>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        ...
+        <configuration>
+          <archive>
+            <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+          </archive>
+        </configuration>
+        ...
+      </plugin>
+    </plugins>
+  </build>
+  ...
+</project>
+```
+
+
+If you need to define your own `MANIFEST.MF` file you can simply achieve that via **Maven Archiver** configuration like in the following example:
+
+```xml
+<project>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+          </archive>
+        </configuration>
+        ...
+      </plugin>
+    </plugins>
+  </build>
+  ...
+</project>
+```
 
