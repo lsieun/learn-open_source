@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>lsieun</groupId>
+        <artifactId>flink-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>..</relativePath>
+    </parent>
+
+    <artifactId>flink-clients</artifactId>
+    <packaging>jar</packaging>
+
+    <name>flink-clients</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>lsieun</groupId>
+            <artifactId>flink-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>lsieun</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

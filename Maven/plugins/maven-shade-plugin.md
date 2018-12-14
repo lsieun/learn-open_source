@@ -71,7 +71,7 @@ To do that, I just added the `dependencyReducedPomLocation` element to the `conf
 </configuration>
 ```
 
-## Exclude META-INF/maven folder from the generated jar file
+## Exclude `META-INF/maven` folder from the generated jar file
 
 URL: https://stackoverflow.com/questions/32887455/exclude-meta-inf-maven-folder-from-the-generated-jar-file
 
