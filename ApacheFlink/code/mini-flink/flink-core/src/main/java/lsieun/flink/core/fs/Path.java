@@ -264,7 +264,7 @@ public class Path implements Serializable {
      *         thrown if the file system could not be retrieved
      */
     public FileSystem getFileSystem() throws IOException {
-        // TODO: modify
+        // LSIEUN: modify
         // return FileSystem.get(this.toUri());
         return new LocalFileSystem();
     }

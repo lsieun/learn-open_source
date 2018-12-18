@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import lsieun.flink.annotation.Public;
+import lsieun.flink.core.fs.local.LocalFileSystem;
 
 @Public
 public abstract class FileSystem {
@@ -44,6 +45,16 @@ public abstract class FileSystem {
      *         IOException see specific implementation
      */
     public abstract FileStatus getFileStatus(Path f) throws IOException;
+
+    /**
+     * Return an array containing hostnames, offset and size of
+     * portions of the given file. For a nonexistent
+     * file or regions, null will be returned.
+     * This call is most helpful with DFS, where it returns
+     * hostnames of machines that contain the given file.
+     * The FileSystem will simply return an elt containing 'localhost'.
+     */
+    public abstract BlockLocation[] getFileBlockLocations(FileStatus file, long start, long len) throws IOException;
 
     /**
      * List the statuses of the files/directories in the given path if the path is
@@ -120,4 +131,37 @@ public abstract class FileSystem {
      * Gets a description of the characteristics of this file system.
      */
     public abstract FileSystemKind getKind();
+
+    /**
+     * Returns a reference to the {@link FileSystem} instance for accessing the
+     * file system identified by the given {@link URI}.
+     *
+     * @param uri
+     *        the {@link URI} identifying the file system
+     * @return a reference to the {@link FileSystem} instance for accessing the file system identified by the given
+     *         {@link URI}.
+     * @throws IOException
+     *         thrown if a reference to the file system instance could not be obtained
+     */
+    public static FileSystem get(URI uri) throws IOException {
+        return new LocalFileSystem();
+    }
+
+    /**
+     * Opens an FSDataInputStream at the indicated Path.
+     *
+     * @param f
+     *        the file name to open
+     * @param bufferSize
+     *        the size of the buffer to be used.
+     */
+    public abstract FSDataInputStream open(Path f, int bufferSize) throws IOException;
+
+    /**
+     * Opens an FSDataInputStream at the indicated Path.
+     *
+     * @param f
+     *        the file to open
+     */
+    public abstract FSDataInputStream open(Path f) throws IOException;
 }

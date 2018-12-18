@@ -12,6 +12,8 @@ public class FileInputSplit extends LocatableInputSplit {
 
     private static final long serialVersionUID = 1L;
 
+    // -------------------------------------- Fields -------------------------------------------
+
     /** The path of the file this file split refers to. */
     private final Path file;
 
@@ -21,7 +23,8 @@ public class FileInputSplit extends LocatableInputSplit {
     /** The number of bytes in the file to process. */
     private final long length;
 
-    // --------------------------------------------------------------------------------------------
+
+    // -------------------------------------- Constructors -------------------------------------------
 
     /**
      * Constructs a split with host information.
@@ -45,7 +48,7 @@ public class FileInputSplit extends LocatableInputSplit {
         this.length = length;
     }
 
-    // --------------------------------------------------------------------------------------------
+    // -------------------------------------- Properties -------------------------------------------
 
     /**
      * Returns the path of the file containing this split's data.
@@ -74,7 +77,7 @@ public class FileInputSplit extends LocatableInputSplit {
         return length;
     }
 
-    // --------------------------------------------------------------------------------------------
+    // -------------------------------------- Override -------------------------------------------
 
     @Override
     public int hashCode() {

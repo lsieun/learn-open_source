@@ -13,7 +13,11 @@ public class LocatableInputSplit implements InputSplit, Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // -------------------------------------- Static Fields -------------------------------------------
+
     private static final String[] EMPTY_ARR = new String[0];
+
+    // -------------------------------------- Fields -------------------------------------------
 
     /** The number of the split. */
     private final int splitNumber;
@@ -21,7 +25,7 @@ public class LocatableInputSplit implements InputSplit, Serializable {
     /** The names of the hosts storing the data this input split refers to. */
     private final String[] hostnames;
 
-    // --------------------------------------------------------------------------------------------
+    // -------------------------------------- Constructors -------------------------------------------
 
     /**
      * Creates a new locatable input split that refers to a multiple host as its data location.
@@ -45,7 +49,7 @@ public class LocatableInputSplit implements InputSplit, Serializable {
         this.hostnames = hostname == null ? EMPTY_ARR : new String[] { hostname };
     }
 
-    // --------------------------------------------------------------------------------------------
+    // -------------------------------------- Properties -------------------------------------------
 
     @Override
     public int getSplitNumber() {
@@ -61,7 +65,7 @@ public class LocatableInputSplit implements InputSplit, Serializable {
         return this.hostnames;
     }
 
-    // --------------------------------------------------------------------------------------------
+    // -------------------------------------- Overrides -------------------------------------------
 
     @Override
     public int hashCode() {

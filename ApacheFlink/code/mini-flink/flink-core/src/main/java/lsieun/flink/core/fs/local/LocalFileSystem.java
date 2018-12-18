@@ -16,6 +16,8 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.StandardCopyOption;
 
 import lsieun.flink.annotation.Internal;
+import lsieun.flink.core.fs.BlockLocation;
+import lsieun.flink.core.fs.FSDataInputStream;
 import lsieun.flink.core.fs.FileStatus;
 import lsieun.flink.core.fs.FileSystem;
 import lsieun.flink.core.fs.FileSystemKind;
@@ -72,6 +74,16 @@ public class LocalFileSystem extends FileSystem {
         return new Path(homeDir);
     }
 
+
+    // ------------------------------------------------------------------------
+
+    @Override
+    public BlockLocation[] getFileBlockLocations(FileStatus file, long start, long len) throws IOException {
+        return new BlockLocation[] {
+                new LocalBlockLocation(hostName, file.getLen())
+        };
+    }
+
     @Override
     public FileStatus getFileStatus(Path f) throws IOException {
         final File path = pathToFile(f);
@@ -82,6 +94,17 @@ public class LocalFileSystem extends FileSystem {
             throw new FileNotFoundException("File " + f + " does not exist or the user running "
                     + "Flink ('" + System.getProperty("user.name") + "') has insufficient permissions to access it.");
         }
+    }
+
+    @Override
+    public FSDataInputStream open(final Path f, final int bufferSize) throws IOException {
+        return open(f);
+    }
+
+    @Override
+    public FSDataInputStream open(final Path f) throws IOException {
+        final File file = pathToFile(f);
+        return new LocalDataInputStream(file);
     }
 
     @Override

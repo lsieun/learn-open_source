@@ -21,5 +21,10 @@
             <artifactId>flink-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>lsieun</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

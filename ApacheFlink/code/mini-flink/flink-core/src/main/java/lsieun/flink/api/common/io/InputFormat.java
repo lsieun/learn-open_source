@@ -36,6 +36,8 @@ public interface InputFormat<OT, T extends InputSplit> extends InputSplitSource<
      */
     BaseStatistics getStatistics(BaseStatistics cachedStatistics) throws IOException;
 
+    // --------------------------------------------------------------------------------------------
+
     /**
      * Creates the different splits of the input that can be processed in parallel.
      * <p>
