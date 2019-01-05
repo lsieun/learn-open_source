@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- FIXME: namespace -->
+<mapper namespace="jan.mapper.UserMapper">
+    <resultMap id="userMap" type="jan.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="gender" column="gender"/>
+        <result property="avatar" column="avatar"/>
+        <result column="create_time" jdbcType="DATE" property="createTime" javaType="java.util.Date"/>
+        <result column="last_edit_time" jdbcType="DATE" property="lastEditTime" javaType="java.util.Date"/>
+        <result property="isApproved" column="is_approved"/>
+        <result property="isValid" column="is_valid"/>
+    </resultMap>
+    <insert id="insert">
+		INSERT INTO `user`(`id`,`username`,`password`,`gender`, `avatar`)
+        VALUES (#{id}, #{username}, #{password}, #{gender}, #{avatar});
+	</insert>
+
+    <select id="findById" resultMap="userMap">
+		select `id`,`username`,`password`,`gender`, `avatar`, `create_time`, `last_edit_time`, `is_approved`, `is_valid`
+		from `user`
+		where id = #{id}
+	</select>
+
+    <update id="updateById">
+        update user
+        <set>
+            <if test="username != null and username !=''">
+                username = #{username},
+            </if>
+            <if test="password != null and password !=''">
+                password = #{password},
+            </if>
+            <if test="gender != null and gender !=''">
+                gender = #{gender},
+            </if>
+            <if test="avatar != null and avatar !=''">
+                avatar = #{avatar},
+            </if>
+            <if test="isApproved != null and isApproved !=''">
+                is_approved = #{isApproved},
+            </if>
+            <if test="isValid != null and isValid !=''">
+                is_valid = #{isValid},
+            </if>
+            last_edit_time = NOW()
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id="selectUsersByPage" resultType="jan.entity.User">
+        select id,name,age,email from tb_user
+        <where>
+            <if test="user.name != null">
+                and name = #{user.name}
+            </if>
+            <if test="user.age != 0">
+                and age = #{user.age}
+            </if>
+            <if test="user.email != null">
+                and email = #{user.email}
+            </if>
+        </where>
+        limit #{startIndex}, #{size}
+    </select>
+
+    <select id="selectUsersById" resultType="jan.entity.User">
+		select id,name,age,email from tb_user where id = #{id}
+	</select>
+
+    <update id="updateUser">
+        update tb_user
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="age != 0">
+                age = #{age},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="deleteUserById">
+		delete from tb_user where id = #{id}
+	</delete>
+</mapper>
