@@ -1,6 +1,0 @@
-# maven help plugin
-
-
-
-
-
